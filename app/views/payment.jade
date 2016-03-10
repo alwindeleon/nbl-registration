@@ -1,0 +1,46 @@
+extends layout
+block js
+  script(src='/js/payment.js')
+block content
+  .row
+    .col-lg-8.col-lg-offset-2
+      .row
+        .col-lg-4.col.lg-offset-4
+          h2 Payment
+          h4=student.firstName+" "+student.lastName
+      br
+      br
+      .row
+        .col-lg-4.col.lg-offset-4
+          h2.text-primary Unpaid Fees
+      .row
+        .col-lg-10.col-lg-offset-1
+          form(method='POST',action='/payment/#{student.studentNumber}')
+            .row
+              .col-lg-2
+                Year
+              .col-lg-2
+                Item
+              .col-lg-2
+                Quantity
+              .col-lg-2
+                total price
+              .col-lg-2
+                check to pay
+            if student.unpaidFees.length > 0
+              for fee in student.unpaidFees
+                .row
+                  .col-lg-2=fee.year
+                  .col-lg-2=fee.name
+                  .col-lg-2=fee.quantity
+                  .col-lg-2.price=fee.price*fee.quantity
+                  .col-lg-2
+                    input(type='checkbox',name="itemsPaid[]",value='#{fee.name}')
+            .row
+              .col-lg-2
+              .col-lg-2 Total
+              .col-lg-2 Amount:
+              .col-lg-2
+                span#totalBill 0
+              .col-lg-2
+                button.btn.btn-primary(type='submit') Pay

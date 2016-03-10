@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .row
+    .col-md-4.col-md-offset-4.well.well-lg.top-2#mainBox
+      h5.text-success Search student to assess or to create transaction
+
+        .row
+          .col-md-12
+            span.label.label-warning=message
+            form.navbar-form.navbar-left(method="POST",action="/profile")
+              .form-group
+                input.form-control(type='text', placeholder='input id number',name='studentNumber',required="")
+              button.btn.btn-default(type='submit') Search
+      .row
+        .col-md-12
+          .list-group.table-of-contents.top-2
+            a.list-group-item(href="/register") Register Student
+            a.list-group-item(href="/print") Print Details
+            a.list-group-item(href="/miscfees") Add/Remove/Edit Misc. Fees
+            a.list-group-item(href="/setschoolyear") Update School Year
+

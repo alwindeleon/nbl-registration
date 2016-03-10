@@ -1,0 +1,96 @@
+extends layout
+
+block content
+  .row
+    .col-lg-4.col-lg-offset-4.well.well-lg.top-2#mainBox
+      h2.assess-header.text-success Assessment
+      h5=student.firstName+" "+student.lastName
+      .row
+        .col-lg-12
+          form.form-control(method='POST',action='/assess')
+            .form-group
+              label.control-label.col-lg-4 student number
+              input.col-lg-8(type=text,value='#{student.studentNumber}',name='studentNumber',readonly="")
+            .form-group
+              label.col-lg-6.control-label(for='select') Mode of Payment : 
+              .col-lg-6
+                select.form-control(name="modeOfPayment")
+                  option(value="semestral") Semestral
+                  option(value="quarterly") Quarterly
+                  option(value='monthly') Monthly
+                  option(value='one') whole year
+            br
+            br
+            .form-group
+              label.col-lg-6.control-label(for='select') School Year : 
+              .col-lg-6
+                select#select.form-control(name="schoolYear")
+                  option(value="2015-2016") 2015-2016
+                  option(value="2016-2017") 2016-2017
+                  option(value="2017-2018") 2017-2018
+                  option(value="2018-2019") 2018-2019
+                  option(value="2019-2020") 2019-2020
+                  option(value="2021-2022") 2021-2022
+            br
+            br
+            .form-group
+              label.col-lg-6.control-label(for='select') Section : 
+              .col-lg-6
+                select#select.form-control(name="section")
+                  for section in sections
+                    option(value="#{section.level}-#{section.name}") #{section.level}-#{section.name}
+
+            br
+            br
+            .form-group
+              label.col-lg-6.control-label(for='select') Year Level : 
+              .col-lg-6
+                select#select.form-control(name='yearLevel')
+                  option(value='nursery') Nursery 
+                  option(value='kinder') Kinder
+                  option(value='preparatory') Preparatory
+                  option(value="grade-1") Grade 1
+                  option(value="grade-2") Grade 2
+                  option(value="grade-3") Grade 3
+                  option(value="grade-4") Grade 4
+                  option(value="grade-5") Grade 5
+                  option(value="grade-6") Grade 6
+                  option(value="grade-7") Grade 7
+                  option(value="grade-8") Grade 8
+                  option(value="grade-9") Grade 9
+                  option(value="grade-10") Grade 10
+            .row
+              .col-md-12
+                h4.text-primary Miscellaneous Fees
+                .max-size-12
+                  table.table.table-striped.table-hover
+                    .row
+                      .col-md-12
+                        thead
+                          tr
+                            th 
+                            th items
+                            th price
+                            th quantity desired
+                        tbody
+                          for misc,index in miscFees
+                            tr
+                              td=index+1
+                              td=misc.name
+                              td="PHP "+misc.price
+                              td
+                                input(type="number",value="0",name='misc[]')
+              .row
+              .col-md-12
+                h4.text-primary Discounts
+                .max-size-12
+                  for discount in discounts
+                    .checkbox
+                      label
+                        input(type='checkbox',name='discounts[]',value='#{discount}')
+                        |  #{discount}
+              .col-sm-4.col-sm-offset-4
+                button.btn.btn-primary(type="submit") Submit
+
+            
+

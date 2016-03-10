@@ -1,0 +1,63 @@
+extends layout
+
+block content
+  .row.main
+    .col-md-8.col-md-offset-2.well.well-lg.top-2#mainBox
+      h3.text-center SOAs
+      for student,index in students
+        .row.soa-box
+          .col-md-12.line-1.line
+            h3 NBL Education System
+            h6 Dear Mr/Ms #{student.lastName}
+            p Please settle the account of #{student.firstName} #{student.lastName}
+            hr
+            p As specified on or before #{date}
+
+            span Tuition Fee/Misc
+            table.table.table-striped.table-hover
+
+              tbody
+                for fee in student.unpaidFees
+                  tr
+                    td.name=fee.name
+                    td=fee.price
+
+                tr.final
+                  td 
+                    span.bold Total
+                  td=total_amounts[index]
+          br
+          .col-md-6.line
+            p Note: Refer to Policies on Payment of Tuition and Other Fees stated on page 25 of Student Handbook and to School Calendar on page2
+            p.text-center Thank you for your kind attention. Please present this when paying or disregard if payment have been made.
+            p.text-center "NO PERMIT, NO EXAM"
+          .col-md-6.line
+            .admin-line
+              hr.admin
+              span.small NBL ADMINISTRATOR
+      .row
+        .col-lg-4.col-lg-offset-4
+          button.btn.btn-primary.btn-lg.no-print#print(type='button') Print Details
+
+
+        
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $(".row.main").print({
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: '/css/print_soa.css',
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "Statement Of Accounts",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })
+      

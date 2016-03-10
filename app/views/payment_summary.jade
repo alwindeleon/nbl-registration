@@ -1,0 +1,69 @@
+extends layout
+
+block content
+  .row#main
+    for i in [1,2]
+      .col-md-8.col-md-offset-2.well.well-lg.top-2.mainBox
+        .main-header
+          img.logo(src='/img/nbl-logo.jpg')
+          h3.head Catholic School of Pacita
+          p.header
+        .row.sub-header
+          h4.lead Official Receipt
+          h6.lead="date: "+date
+          h6="NO. "+history[0].orNumber 
+        .row
+          .col-md-6
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th item
+                  th particulars
+                  th price
+              tbody
+                for item,index in history
+                  tr
+                    td=item.name
+                    td=item.quantity
+                    td="PHP "+item.amountReceived
+                tr 
+                  td 
+                  td 
+                    h6="Total Payment : "
+                  td="PHP "+total_payment
+          .col-md-3
+            h5 Received From  :
+            h5 the sum of pesos :
+          .col-md-3
+            h5.underline #{student.firstName} #{student.lastName}
+            h5.underline="PHP "+ total_payment
+            h6 In payment of the particular specified at the left
+        br
+        .row.signature
+          .col-md-4.col-md-offset-8.signature-box
+            h6.sig-label By
+    .row
+      .col-lg-4.col-lg-offset-4.no-print
+        button.btn.btn-primary.btn-lg#print(type='button') Print Details
+
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $(".row#main").print({
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: '/css/print_or.css',
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "Statement Of Accounts",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })
+      
+    

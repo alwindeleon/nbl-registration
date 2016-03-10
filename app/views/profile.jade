@@ -1,0 +1,70 @@
+extends layout
+
+block content
+  .row.well-lg.well
+    .col-lg-8.col-lg-offset-2.well-lg.well
+      .row
+        .col-lg-6
+          h3=student.firstName+" "+student.lastName
+          h6="Student Number: "+student.studentNumber
+          h6="Year Level: "+student.yearLevel
+          h6="Section: "+student.section
+          h6="Mode Of Payment: "+student.modeOfPayment
+          h6="Latest year enrolled: "+student.yearEnrolled
+      .row
+        .col-lg-6
+          h4 Payment History
+        .col-lg-6
+          h4 Unpaid Fees
+      .row
+        .col-lg-6.table-holder
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th Date
+                th Item
+                th Price
+                th Quantity
+            tbody
+              if student.paymentHistory.length > 0
+                for item in student.paymentHistory
+                  tr
+                    td=item.date
+                    td=item.name
+                    td=item.amountReceived
+                    td=item.quantity
+              else 
+                tr
+                  td 
+                  td No
+                  td History
+                  td
+        .col-lg-6.table-holder
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th Year
+                th Name
+                th Price
+                th Quantity
+            tbody
+              if student.unpaidFees.length > 0
+                for item in student.unpaidFees
+                  tr
+                    td=item.year
+                    td=item.name
+                    td=item.price
+                    td=item.quantity
+                tr
+                  td Total
+                  td Balance
+                  td=total_unpaid
+                  td
+              else
+                tr
+                  td
+                  td Not
+                  td Assessed or
+                  td already Paid
+      .row
+        a.btn-lg.btn.btn-primary.auto-margin(href='/payment/#{student.studentNumber}') Create Payment

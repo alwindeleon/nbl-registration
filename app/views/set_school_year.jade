@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .row
+    .col-md-4.col-md-offset-4.well.well-lg.top-2#mainBox
+      h5.text-success Input Section To Be Printed
+
+        .row
+          .col-md-12
+            span.label.label-warning=message
+            form(method="POST",action="/setschoolyear")
+              .form-group
+                .row
+                  .col-xs-3
+                    input.form-control(type='number', placeholder='Year1',name='year1',required="",value='#{a}')
+                  .col-xs-3
+                    span.label.label-warning TO
+                  .col-xs-3
+                    input.form-control(type='number', placeholder='Year2',name='year2',required="",value='#{b}')
+              button.btn.btn-default(type='submit') Submit

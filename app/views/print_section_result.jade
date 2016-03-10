@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  .row.main
+    .col-md-6.col-md-offset-3.well.well-lg.top-2#mainBox
+      h3.text-center="Section: "+section
+      .row
+        .col-md-12
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th #
+                th Student Number
+                th Last Name
+                th First Name
+                th Middle Name
+            tbody
+              for student,index in students
+                tr
+                  td=index+1
+                  td=student.studentNumber
+                  td=student.lastName
+                  td=student.firstName
+                  td=student.middleName
+              
+      .row
+        .col-lg-4.col-lg-offset-4
+          button.btn.btn-primary.btn-lg.no-print#print(type='button') Print Details
+
+
+        
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $(".row.main").print({
+                  globalStyles: true,
+                  mediaPrint: true,
+                  stylesheet: null,
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "Section Information",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })
+      
+    

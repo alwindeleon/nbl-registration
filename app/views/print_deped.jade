@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  .row.main
+    .col-md-6.col-md-offset-3.well.well-lg.top-2#mainBox
+      h4.text-center Private School Registry of Learners
+      h5.text-center Beginning-Of-School-Year
+      .row
+        .col-md-12
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th #
+                th Student Number
+                th Last Name
+                th First Name
+                th Middle Name
+                th Gender
+                th Birth Date
+                th Year Level
+                th Section
+            tbody
+              for student,index in students
+                tr
+                  th=index+1+'.'
+                  th=student.studentNumber
+                  th=student.lastName
+                  th=student.firstName
+                  th=student.middleName
+                  th=student.gender
+                  th=student.dateOfBirth
+                  th=student.yearLevel
+                  th=student.section
+              
+      .row
+        .col-lg-4.col-lg-offset-4
+          button.btn.btn-primary.btn-lg.no-print#print(type='button') Print Details
+
+
+  style.
+    @page {
+      size:landscape;
+    }
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $(".row.main").print({
+                  globalStyles: true,
+                  mediaPrint: true,
+                  stylesheet: null,
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "Department of Education",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })
+      
+    

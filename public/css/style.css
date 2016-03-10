@@ -1,0 +1,97 @@
+body {
+  padding: 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#login-form {
+  margin-top: 10em;
+}
+
+.top-1 {
+  margin-top: 1em;
+}
+
+.top-2 {
+  margin-top: 3em;
+}
+
+.top-3 {
+  margin-top: 6em;
+}
+
+.top-4 {
+  margin-top: 9em;
+}
+
+#logo {
+  position: absolute;
+  opacity: .15;
+  height: 50em;
+  width: 50em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+#mainBox { 
+  border-radius: .5em;
+  padding-bottom: 3em;
+}
+
+.tab-left {
+  margin-left: 1em;
+}
+
+.max-size-12 {
+  max-height: 18em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.assess-header {
+  margin-top: 0;
+}
+
+.nav-item {
+  border-left:  1px lightgrey solid;
+  border-right:  1px lightgrey solid;
+  margin-left: .25px;
+  margin-right: .25px;
+}
+
+.table-holder {
+  max-height: 17em;
+  overflow-y: auto;
+}
+
+.fixed {
+  position: fixed;
+}
+
+@media print {
+  .main{
+    size: landscape;
+  }
+  .soa-box {
+    max-height: 50em;
+    border: 1px lightgrey solid;
+  }
+  
+}
+
+.lead {
+  margin: 0  0 !important;
+}
+
+.auto-margin {
+  margin: 1em 19em; 
+}
+
+.label {
+  font-size: 15px !important;
+}

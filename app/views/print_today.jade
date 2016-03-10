@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  .row#main
+    .col-md-8.col-md-offset-2.well.well-lg.top-2#mainBox
+      h5.text-success="Payments/Transactions Daily Report - "+dateMonth+"/"+dateDay+"/"+dateYear+"(m/dd/yyyy)"
+      h4 Today's Transactions
+      .row
+        .col-md-12
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th Name
+                th OR #
+                th Item 
+                th Quantity
+                th Amount Paid
+            tbody
+              for item,index in history
+                tr
+                  td=item.person
+                  td=item.orNumber
+                  td=item.name
+                  td=item.quantity
+                  td=item.amountReceived
+              tr
+                td
+                td 
+                td 
+                td 
+                  h6="Total: "
+                td="PHP "+total
+      .row
+        .col-lg-4.col-lg-offset-4.no-print
+          button.btn.btn-primary.btn-lg#print(type='button') Print Details
+
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $("#main").print({
+                  globalStyles: true,
+                  mediaPrint: true,
+                  stylesheet: null,
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "Payment Transactions",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })
+      
+    

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .row
+    .col-md-6.col-md-offset-3.well.well-lg.top-2#mainBox
+      h5.text-success New or Old Student
+      .row
+        .col-md-12
+          span.label-warning=message
+          form.form(method="POST",action="/register/old")
+            .row
+              .col-md-8
+                .form-group
+                  input.form-control(type='text', placeholder='input student number of old student',name="studentNumber",required='')
+              .col-md-4
+                button.btn.btn-default.tab-left(type='submit') Next
+      .row
+        .col-md-12
+          .list-group.table-of-contents.top-2
+            a.list-group-item(href="/register/new") Register New Student
+
+

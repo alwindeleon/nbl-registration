@@ -1,0 +1,82 @@
+#main {
+  min-width: 99%;
+  max-width: 100%;
+}
+.mainBox{
+  
+  min-height: 400px;
+  border: 1px solid black;
+}
+
+table.table {
+  margin-left: 2em;
+  min-width: 30%;
+}
+
+.logo {
+  top: 10px;
+  right: 60px;
+  position: relative;
+  max-width: 60px;
+  max-height: 60px;
+  margin-top: 1em;
+}
+
+h6 {
+  margin: 0;
+}
+
+.main-header {
+  margin-left: 240px;
+}
+
+.col-md-3, .col-md-6 {
+  min-width: 20%;
+  float: left;
+  margin-right: 1em 1em;
+}
+
+.head {
+  position: relative;
+  top: -40px;
+  left:30px;
+}
+
+table {
+  font-size: 9px;
+  border: 1px solid black;
+}
+h5 {
+  text-align: right;
+}
+h5.underline{
+  border-bottom: 1px solid black;
+  text-align: left;
+}
+
+h6 {
+  margin: 0;
+}
+.sub-header {
+  margin: 0 250px;
+}
+
+.signature {
+ 
+}
+
+.signature-box {
+   position: relative;
+  top: 150px;
+  left: 350px;
+  border-top: 1px solid black;
+  max-width: 175px;
+  min-height: 20px;
+}
+
+.sig-label {
+  position: relative;
+  top: -10em;
+  left: -1.5em;
+}
+

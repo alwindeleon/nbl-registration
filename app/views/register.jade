@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  .row
+    .col-md-4.col-md-offset-4.top-2
+      form.form-horizontal(method='POST',action='/register')
+            fieldset
+              legend Student Admission Form
+              .form-group
+                label.col-lg-2.control-label(for='firstName') firstname
+                .col-lg-10
+                  input#firstName.form-control(type='text', placeholder='firstname',name="firstName",required='')
+              .form-group
+                label.col-lg-2.control-label(for='lastName') lastname
+                .col-lg-10
+                  input#lastName.form-control(type='text', placeholder='lastname',name='lastName',required='')
+              .form-group
+                label.col-lg-2.control-label(for='middleName') middlename
+                .col-lg-10
+                  input#middleName.form-control(type='text', placeholder=' (optional) ',name='middleName')
+              .form-group
+                label.col-lg-2.control-label(for='address') address
+                .col-lg-10
+                  input#address.form-control(type='text', placeholder='address',name='address')
+              .form-group
+                label.col-lg-2.control-label(for='cellphoneNumber') cellphone number
+                .col-lg-10
+                  input#cellphoneNumber.form-control(type='text', placeholder='09234567890',name='cellphoneNumber')
+
+              .form-group
+                label.col-lg-2.control-label(for='telnum') Telephone Number
+                .col-lg-10
+                  input#telnum.form-control(type='number', placeholder='telephone number',name='telnum',required='')
+              .form-group
+                label.col-lg-2.control-label(for='dateOfBirth') Date of Birth
+                .col-lg-10
+                  input#dateOfBirth.form-control(type='date', placeholder='Jan-1-1999',name='dateOfBirth',required='')
+
+              .form-group
+                label.col-lg-2.control-label Gender
+                .col-lg-10
+                  .radio
+                    label
+                      input#optionsRadios1(type='radio', name='gender', value='male',required='')
+                      |            Male
+                  .radio
+                    label
+                      input#optionsRadios2(type='radio', name='gender', value='female',required='')
+                      |            Female
+              .form-group
+                label.col-lg-2.control-label(for='nameOfFather') Father's Name
+                .col-lg-10
+                  input#nameOfFather.form-control(type='text', placeholder="Father's Name",name='nameOfFather',required='')
+              .form-group
+                label.col-lg-2.control-label(for='nameOfMother') Mother's Name
+                .col-lg-10
+                  input#nameOfMother.form-control(type='text', placeholder="Mother's Name",name='nameOfMother',required='')
+              .form-group
+                label.col-lg-2.control-label(for='nameOfGuardian') Guardian's Name
+                .col-lg-10
+                  input#nameOfGuardian.form-control(type='text', placeholder="Guardian's Name",name='nameOfGuardian',required='')
+
+              .form-group
+                .col-lg-10.col-lg-offset-2
+                  a.btn.btn-default(href="/home") Cancel
+                  button.btn.btn-primary(type='submit') Submit

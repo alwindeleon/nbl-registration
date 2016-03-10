@@ -1,0 +1,63 @@
+extends layout
+
+block content
+  .row.main
+    .col-md-6.col-md-offset-3.well.well-lg.top-2#mainBox
+      h3.text-center Certificate of Matriculation
+      .row
+        .col-lg-6
+          h6.lead="name:  "+student.firstName+" "+student.lastName
+          h6.lead="student number:  "+student.studentNumber
+          h6.lead="grade/year level:  "+student.yearLevel
+        .col-lg-6
+          h6.lead="gender:  "+student.gender
+          h6.lead="section:  "+student.section
+      .row
+        .col-md-12
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th #
+                th fees
+                th quantity
+                th price
+            tbody
+              for item,index in items
+                tr
+                  td=index+1
+                  td=item.name
+                  td=item.qty
+                  td="PHP "+item.price
+              tr
+                td 
+                td 
+                td 
+                  h6="Total Fee : "
+                td="PHP "+total_tuition
+      .row
+        .col-lg-4.col-lg-offset-4
+          button.btn.btn-primary.btn-lg.no-print#print(type='button') Print Details
+
+
+        
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $(".row.main").print({
+                  globalStyles: true,
+                  mediaPrint: true,
+                  stylesheet: null,
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "NBL ASSESSMENT",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })
+      
+    

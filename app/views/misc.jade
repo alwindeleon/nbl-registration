@@ -1,0 +1,42 @@
+extends layout
+
+block js
+  script(src='./js/misc.js')
+block content
+  .row
+    .col-md-6.col-md-offset-3.top-2
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Name
+            th Price
+            th 
+            th
+        tbody
+          tr.success
+            td
+              input#addName(type="text",required="")
+            td
+              input#addPrice(type="number",required="")
+            td
+              button.btn.btn-success#add
+                span.glyphicon.glyphicon-plus
+            td
+              
+          if miscFees.length > 0
+            each fee,index in miscFees
+              tr.danger
+                td.name-holder
+                  h6.name=fee.name
+                td.price-holder
+                  input(type="text",value=fee.price).price
+                td
+                  button.btn.btn-primary.save Save
+                td
+                  button.delete
+                    span.glyphicon.glyphicon-remove
+          else
+            tr
+              td Misc
+              td Fees
+              td Empty

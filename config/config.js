@@ -26,8 +26,8 @@ var config = {
     app: {
       name: 'nbl-registration-mongo'
     },
-    port: 3000,
-    db: 'mongodb://localhost/nbl-registration-mongo-production'
+    port: process.env.PORT || 3000,
+    db: process.env.MONGOLAB_URI || 'mongodb://localhost/siete-production'
   }
 };
 

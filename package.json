@@ -24,5 +24,6 @@
     "gulp-nodemon": "^2.0.2",
     "gulp-plumber": "^1.0.0",
     "mongoose-seed": "^0.1.5"
-  }
+  },
+  "engines": { "node": "4.2.1"}
 }

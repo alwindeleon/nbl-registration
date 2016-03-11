@@ -1,6 +1,6 @@
 var seeder = require('mongoose-seed');
 
-seeder.connect('mongodb://localhost/nbl-registration-mongo-development',function(){
+seeder.connect('mongodb://heroku_xltc5vkw:5r521po7fhmfr5vhnjbufbgdjv@ds011399.mlab.com:11399/heroku_xltc5vkw',function(){
   seeder.loadModels([
     '../app/models/user.js',
     '../app/models/section.js',
@@ -32,7 +32,7 @@ data = [{
                 curNumber:0
               }
   ]
-},z
+},
 {
   'model':'StudentNumber',
   'documents':[

@@ -1,0 +1,69 @@
+extends layout
+
+block content
+  .row.main
+    .col-md-8.col-md-offset-2
+      h1.text-center Catholic School of Pacita
+      h5.text-center #{date}
+      .row
+        .col-md-6
+          h2.text-primary.text-center All Paid Students
+          span.badge.badge-primary.no-print this current academic year
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th Name
+                th Student Number
+                th Unpaid Amount
+            tbody
+              for student in paidStudents
+                tr
+                  td=student.name
+                  td=student.studentNumber
+                  td=student.total
+              tr
+                td
+                td Total Paid
+                td=totalPaid
+        .col-md-6
+            h2.text-primary.text-center All Unpaid Students
+            span.badge.badge-primary.no-print this current academic year
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th Name
+                  th Student Number
+                  th Unpaid Amount
+              tbody
+                for student in unpaidStudents
+                  tr
+                    td=student.name
+                    td=student.studentNumber
+                    td=student.total
+                tr
+                  td
+                  td Total Unpaid
+                  td=totalUnpaid
+      .row.no-print
+        .col-md-4.col-md-offset-4
+          button#print.btn.btn-primary.btn-lg Print
+
+  script.
+      $(document).ready(function(){
+        $('#print').click(function(){
+          $(".row.main").print({
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: "/css/tuition.css",
+                  noPrintSelector: ".no-print",
+                  iframe: true,
+                  append: null,
+                  prepend: null,
+                  manuallyCopyFormValues: true,
+                  deferred: $.Deferred(),
+                  timeout: 250,
+                  title: "NBL ASSESSMENT",
+                  doctype: '<!doctype html>'
+          });
+        });
+      })

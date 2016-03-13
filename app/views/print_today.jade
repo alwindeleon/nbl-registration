@@ -3,6 +3,7 @@ extends layout
 block content
   .row#main
     .col-md-8.col-md-offset-2.well.well-lg.top-2#mainBox
+      h2.text-center Catholic School of Pacita
       h5.text-success="Payments/Transactions Daily Report - "+dateMonth+"/"+dateDay+"/"+dateYear+"(m/dd/yyyy)"
       h4 Today's Transactions
       .row
@@ -38,9 +39,9 @@ block content
       $(document).ready(function(){
         $('#print').click(function(){
           $("#main").print({
-                  globalStyles: true,
-                  mediaPrint: true,
-                  stylesheet: null,
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: "/css/dtr.css",
                   noPrintSelector: ".no-print",
                   iframe: true,
                   append: null,

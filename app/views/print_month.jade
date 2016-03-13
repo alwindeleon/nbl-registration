@@ -3,8 +3,9 @@ extends layout
 block content
   .row#main
     .col-md-8.col-md-offset-2.well.well-lg.top-2#mainBox
-      h5.text-success="Payments/Transactions Monthly Report"+dateMonth+"/"+dateDay+"/"+dateYear+"(m/dd/yyyy)"
-      h4 Today's Transactions
+      h2.text-center Catholic School of Pacita
+      h5.text-success="Payments/Transactions Monthly Report "+dateMonth+"/"+dateDay+"/"+dateYear+" (m/dd/yyyy)"
+      h4 Current Month's Transactions
       .row
         .col-md-12
           table.table.table-striped.table-hover
@@ -31,16 +32,16 @@ block content
                   h6="Total: "
                 td="PHP "+total
       .row
-        .col-lg-2.col-lg-offset-5
+        .col-lg-2.col-lg-offset-5.no-print
           button.btn.btn-primary.btn-lg#print(type='button') Print Details
 
   script.
       $(document).ready(function(){
         $('#print').click(function(){
           $("#main").print({
-                  globalStyles: true,
-                  mediaPrint: true,
-                  stylesheet: null,
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: "/css/dtr.css",
                   noPrintSelector: ".no-print",
                   iframe: true,
                   append: null,

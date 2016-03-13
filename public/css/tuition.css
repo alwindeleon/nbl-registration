@@ -1,0 +1,24 @@
+table, td, tr {
+  text-align: left;
+  font-size: 10px;
+  margin: 0 auto;
+}
+
+th {
+  border-bottom: 2px solid black;
+}
+
+.text-center {
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 5px;
+  margin-top: 30px;
+}
+
+.col-md-6 {
+  float: left;
+  margin: 0 50px;
+}

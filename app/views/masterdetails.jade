@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .row
+    .col-md-6.col-md-offset-3
+      h1 Total Expected Amount, Paid and Unpaid Fees
+      .row
+        .col-md-4
+          h5 Total Expected Amount: #{totalAmount}
+        .col-md-4
+          h5 Total Unpaid Fees: #{totalAmountUnpaid}
+        .col-md-4
+          h5 Total Paid Fees: #{totalAmountPaid}

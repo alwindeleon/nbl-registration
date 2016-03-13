@@ -3,12 +3,12 @@ extends layout
 block content
   .row
     .col-md-4.col-md-offset-4.well.well-lg.top-2#mainBox
-      h5.text-success Input Section To Be Printed
+      h5.text-success Input Year Level To Be Printed
 
         .row
           .col-md-12
             span.label.label-warning=message
             form.navbar-form.navbar-left(method="POST",action="/printlevel")
               .form-group
-                input.form-control(type='text', placeholder='section',name='level',required="")
+                input.form-control(type='text', placeholder='level',name='level',required="")
               button.btn.btn-default(type='submit') next

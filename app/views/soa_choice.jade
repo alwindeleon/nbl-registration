@@ -1,0 +1,43 @@
+extends layout
+
+block content 
+  .row
+    .col-md-6.col-md-offset-3
+      h1 Choose Statement of Accounts to Print
+      span.label.label-warning=message
+      form(method='POST',action='/soa_choice')
+        .row
+          .form-group.col-lg-6
+            label.col-lg-12.control-label Category
+            .col-lg-10
+              .radio
+                label
+                  input#optionsRadios1(type='radio', name='category', value='section')
+                  |             section
+              .radio
+                label
+                  input#optionsRadios2(type='radio', name='category', value='level')
+                  |             year level
+              .radio
+                label
+                  input#optionsRadios2(type='radio', name='category', value='student')
+                  |             Single Student
+          .col-lg-6
+            .form-group
+              h6 Enter Filter
+              label.col-lg-2.control-label(for='filter') Filter
+              .col-lg-10
+                input#filter.form-control(type='text', placeholder='filter',autofocus="",required="",name='filter')
+              span.label.label-warning.small if section, enter section name. if level, enter year level(eg. kinder, grade-8). If single student, enter student number
+              h6.top-1 Enter Due Date
+              label.col-l.top-2g-2.control-label(for='filter') Date
+              .col-lg-10
+                input#filter.form-control(type='date', placeholder='jan-20-2015',autofocus="",required="",name='date')
+            .form-group
+              .col-lg-12
+                button.btn.btn-primary(type='submit') Next
+  style.
+    top-1 {
+      margin-top:2em !important;
+    }
+

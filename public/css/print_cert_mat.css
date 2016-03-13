@@ -1,0 +1,65 @@
+h6 {
+  margin:0;
+  margin: .5em 2em;
+}
+
+img {
+  max-width: 100px;
+  max-height: 100px;
+  position: relative;
+  left :-170px;
+  top: 100px;
+}
+
+.header {
+  width: 100%;
+  float: left;
+  position: relative;
+  left: 450px;
+  top: -2em;
+}
+
+.up-1 {
+  min-width: 43%;
+  float: right;
+  display: inline-block;
+}
+
+
+.mat-box {
+  min-width: 100%;
+  position: relative;
+  top: 7em;
+  left: 3em;
+}
+
+table { text-align: center;}
+
+
+.assessed_by {
+  min-width: 350px;
+  position: relative;
+  top:-250px;
+  left: 400px;
+}
+
+.assess-h {
+  min-width: 100px;
+
+}
+.input-dummy {
+  width: 225px;
+  border-bottom: 1px black solid;
+  margin-top: 1.75em;
+}
+
+.inputs {
+  min-width: 600px;
+  position: relative;
+  top: 15em;
+}
+
+.assessed_by {
+  min-width: 250px;
+  float: left;
+}

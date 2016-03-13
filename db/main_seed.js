@@ -1,6 +1,6 @@
 var seeder = require('mongoose-seed');
 
-seeder.connect('mongodb://heroku_xltc5vkw:5r521po7fhmfr5vhnjbufbgdjv@ds011399.mlab.com:11399/heroku_xltc5vkw',function(){
+seeder.connect('mongodb://localhost/nbl-registration-mongo-development',function(){
   seeder.loadModels([
     '../app/models/user.js',
     '../app/models/section.js',

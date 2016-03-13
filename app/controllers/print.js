@@ -8,6 +8,15 @@ module.exports = function (app) {
   app.use('/', router);
 };
 
+var authorize = function(req, res, next){
+  if(req.session && req.session.user){
+    next();
+  } else {
+    return res.send(401);
+  }
+
+};
+
 var sem =['sem1', 'sem2'];
 var quarter = ['quarter1','quarter2','quarter3','quarter4'];
 var month =  [ "January", "February", "March", "April", "May", "June",
@@ -15,7 +24,7 @@ var month =  [ "January", "February", "March", "April", "May", "June",
 var possibleFees= sem.concat(quarter,month);
 
 //protect this route 
-router.get('/print', function (req, res, next) {
+router.get('/print', authorize, function (req, res, next) {
     return res.render('print');
 });
 
@@ -44,7 +53,7 @@ router.get('/printlevel', function (req, res, next) {
     return res.render('print_level');
 });
 router.post('/printlevel',function(req, res, next){
-  if(!req.body.level) return res.render('print_level',{message:'pleasei input level'});
+  if(!req.body.level) return res.render('print_level',{message:'please input level'});
   CurrentYear.find({},function(error, year){
     year = year[0];
     Student.find({yearLevel:req.body.level,yearEnrolled:year.a+'-'+year.b}, function(error, students){
@@ -62,6 +71,74 @@ router.post('/printlevel',function(req, res, next){
 
 router.get('/printsoa', function (req, res, next) {
     return res.render('print_soa',{possibleFees:possibleFees});
+});
+
+router.get('/printsoachoice',function(req, res, next){
+  return res.render('soa_choice');
+});
+
+router.post('/soa_choice',function(req, res, next){
+  category = req.body.category;
+  filter = req.body.filter;
+  CurrentYear.find({},function(error, year){
+    year = year[0];
+    if(category == 'section'){
+      Student.find({section:filter,yearEnrolled:year.a+"-"+year.b},function(error, students){
+        if(students == null || students.length == 0){
+          return res.render('soa_choice',{message:"no such section"})
+        }
+        var total_amounts = [];
+        var curUnpaid = []
+        for(var i = 0; i < students.length; i++){
+          var amount = 0;
+          for(var j = 0; j < students[i].unpaidFees.length; j++ ){
+              amount +=  students[i].unpaidFees[j].price;
+          }
+          total_amounts.push(amount);
+        }
+        if(students.length == 0) return res.render('print_soa',{possibleFees:possibleFees,message:"there is no such section"});
+        return res.render('print_soa_result',{students:students,date:req.body.date,total_amounts:total_amounts,shouldpay:req.body.name});
+      });  
+    }
+    else if(category == 'level'){
+       Student.find({yearLevel:filter,yearEnrolled:year.a+"-"+year.b},function(error, students){
+        if(students == null || students.length == 0){
+          return res.render('soa_choice',{message:"no such level"})
+        }
+        var total_amounts = [];
+        var curUnpaid = []
+        for(var i = 0; i < students.length; i++){
+          var amount = 0;
+          for(var j = 0; j < students[i].unpaidFees.length; j++ ){
+              amount +=  students[i].unpaidFees[j].price;
+          }
+          total_amounts.push(amount);
+        }
+        if(students.length == 0) return res.render('print_soa',{possibleFees:possibleFees,message:"there is no such yearlevel"});
+        return res.render('print_soa_result',{students:students,date:req.body.date,total_amounts:total_amounts,shouldpay:req.body.name});
+      });  
+    }
+    else if(category == 'student'){
+      Student.findOne({studentNumber:filter},function(error, student){
+        if(student == null){
+          return res.render('soa_choice',{message:"no such student with that student number"})
+        }
+        students = [student];
+        var total_amounts = [];
+        var curUnpaid = []
+        for(var i = 0; i < students.length; i++){
+          var amount = 0;
+          for(var j = 0; j < students[i].unpaidFees.length; j++ ){
+              amount +=  students[i].unpaidFees[j].price;
+          }
+          total_amounts.push(amount);
+        }
+        if(students.length == 0) return res.render('print_soa',{possibleFees:possibleFees,message:"there is no such yearlevel"});
+        return res.render('print_soa_result',{students:students,date:req.body.date,total_amounts:total_amounts,shouldpay:req.body.name});
+      });  
+    }
+    
+  });
 });
 
 router.post('/printsoa',function(req, res, next){
@@ -135,6 +212,116 @@ router.get('/printallaccounts',function(req, res, next){
     res.send({'paid': totalPaid, 'unpaid': roundUp2Deci(totalUnpaid)});
 
   }); 
+});
+
+router.get('/masterdetails',function(req, res, next){
+
+  CurrentYear.find({}, function(error, year){
+    year = year[0];
+    var schoolYear = year.a+'-'+year.b;
+    Student.find({yearEnrolled:schoolYear},function(error,students){
+      console.log(year.a+'-'+year.b);
+      console.log(students);
+      if(error) console.log(error);
+      if(students.length == 0) res
+      var totalAmountUnpaid =0 ;
+      var totalAmountPaid = 0;
+      for(var i = 0; i < students.length;i++){
+        for(var j = 0 ; j < students[i].unpaidFees.length; j++){
+          totalAmountUnpaid += students[i].unpaidFees[j].price;
+        }
+        for(var j = 0; j < students[i].paidFees.length;j++){
+          totalAmountPaid+= students[i].paidFees[j].price;
+        }
+      };
+      return res.render('masterdetails',{totalAmount: totalAmountUnpaid+totalAmountPaid,totalAmountPaid: totalAmountPaid, totalAmountUnpaid:totalAmountUnpaid});
+    })
+  });
+});
+
+router.get('/printallunpaid', function(req, res, next){
+  var unpaidStudents = [];
+  Student.find({}, function(error, students){
+    for(var i = 0; i < students.length; i++){
+      if(students[i].unpaidFees.length != 0){
+        var totalUnpaid = 0;
+        for(var j = 0; j < students[i].unpaidFees.length; j++){
+          totalUnpaid += students[i].unpaidFees[j].price;
+        }
+        var newFormStudent = {name: students[i].firstName +" "+students[i].lastName,studentNumber: students[i].studentNumber  ,total: totalUnpaid}
+        unpaidStudents.push(newFormStudent);
+      }
+    }
+    var totalUnpaid = 0;
+    for(var i = 0 ; i < unpaidStudents.length; i++){
+      totalUnpaid+= unpaidStudents[i].total;
+    }
+    console.log(unpaidStudents);
+    return res.render('allunpaid', {students:unpaidStudents, totalUnpaid:totalUnpaid});
+  });
+});
+
+router.get('/printallpaid', function(req, res, next){
+  var paidStudents = [];
+  Student.find({}, function(error, students){
+    for(var i = 0; i < students.length; i++){
+      if(students[i].paidFees.length != 0){
+        var totalpaid = 0;
+        for(var j = 0; j < students[i].paidFees.length; j++){
+          totalpaid += students[i].paidFees[j].price;
+        }
+        var newFormStudent = {name: students[i].firstName +" "+students[i].lastName,studentNumber: students[i].studentNumber  ,total: totalpaid}
+        paidStudents.push(newFormStudent);
+      }
+    }
+    var totalpaid = 0;
+    for(var i = 0 ; i < paidStudents.length; i++){
+      totalpaid+= paidStudents[i].total;
+    }
+    return res.render('allpaid', {students:paidStudents, totalUnpaid:totalpaid});
+  });
+});
+
+router.get('/printalltuition', function(req, res, next){
+  CurrentYear.find({}, function(error, year){
+    year = year[0];
+    Student.find({yearEnrolled:year.a + "-"+year.b}, function(error,students){
+      var paidStudents = [];
+      for(var i = 0; i < students.length; i++){
+        if(students[i].paidFees.length != 0){
+          var totalpaid = 0;
+          for(var j = 0; j < students[i].paidFees.length; j++){
+            totalpaid += students[i].paidFees[j].price;
+          }
+          var newFormStudent = {name: students[i].firstName +" "+students[i].lastName,studentNumber: students[i].studentNumber  ,total: totalpaid}
+          paidStudents.push(newFormStudent);
+        }
+      }
+      var totalpaid = 0;
+      for(var i = 0 ; i < paidStudents.length; i++){
+        totalpaid+= paidStudents[i].total;
+      }
+      var unpaidStudents = [];
+      for(var i = 0; i < students.length; i++){
+        if(students[i].unpaidFees.length != 0){
+          var totalUnpaid = 0;
+          for(var j = 0; j < students[i].unpaidFees.length; j++){
+            totalUnpaid += students[i].unpaidFees[j].price;
+          }
+          var newFormStudent = {name: students[i].firstName +" "+students[i].lastName,studentNumber: students[i].studentNumber  ,total: totalUnpaid}
+          unpaidStudents.push(newFormStudent);
+        }
+      }
+      var totalUnpaid = 0;
+      for(var i = 0 ; i < unpaidStudents.length; i++){
+        totalUnpaid+= unpaidStudents[i].total;
+      }
+      console.log(unpaidStudents)
+      var date= new Date();
+      return res.render('tuition_balance', {paidStudents:paidStudents, unpaidStudents: unpaidStudents, totalUnpaid: totalUnpaid, totalpaid: totalpaid,date:date });
+
+    });
+  });
 });
 
 function pad(n, width, z) {

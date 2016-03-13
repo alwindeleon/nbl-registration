@@ -3,37 +3,55 @@ extends layout
 block content
   .row.main
     .col-md-6.col-md-offset-3.well.well-lg.top-2#mainBox
-      h3.text-center Certificate of Matriculation
-      .row
-        .col-lg-6
-          h6.lead="name:  "+student.firstName+" "+student.lastName
-          h6.lead="student number:  "+student.studentNumber
+      .row.header
+        img(src='/img/nbl-logo.jpg')
+        h2.text-center Catholic School of Pacita
+        h3.text-center Certificate of Matriculation
+        h5.text-center School Year: #{year.a}-#{year.b}
+      .row.sub-header
+        
+        .col-lg-6.up-1
+          h6.lead="ADDRESS:  "+student.address
+          h6.lead="DATE OF BIRTH: " + student.dateOfBirth
+          h6.lead="FATHER'S NAME: " + student.nameOfFather
+          h6.lead="MOTHER'S NAME: " + student.nameOfMother
+          h6.lead="GUARDIAN'S NAME: " + student.nameOfGuardian
+        .col-lg-6.up-1
+          h6.lead="STUDENT'S NAME:  "+student.firstName+" "+student.lastName
+          h6.lead="STUDENT'S NUMBER:  "+student.studentNumber
           h6.lead="grade/year level:  "+student.yearLevel
-        .col-lg-6
-          h6.lead="gender:  "+student.gender
-          h6.lead="section:  "+student.section
-      .row
+          h6.lead="GENDER:  "+student.gender
+          h6.lead="SECTION:  "+student.section
+          h6.lead="TELEPHONE NUMBER:  "+student.telephoneNum
+      .row.mat-box
+        h3 Matriculation
+        h4 Payment Term's : #{student.modeOfPayment}
         .col-md-12
           table.table.table-striped.table-hover
             thead
               tr
-                th #
-                th fees
-                th quantity
-                th price
+                th.underline FEES
+                th.underline QUANTITY
+                th.underline PRICE
             tbody
               for item,index in items
                 tr
-                  td=index+1
                   td=item.name
                   td=item.qty
                   td="PHP "+item.price
               tr
                 td 
                 td 
-                td 
-                  h6="Total Fee : "
+                  h6="Total Fees/Balance: "
                 td="PHP "+total_tuition
+      .row.inputs
+        .assessed_by
+          h6.assess-h Assessed By :
+          .input-dummy
+        .assessed_by
+          h6.assess-h Approved By :
+          .input-dummy
+
       .row
         .col-lg-4.col-lg-offset-4
           button.btn.btn-primary.btn-lg.no-print#print(type='button') Print Details
@@ -44,9 +62,9 @@ block content
       $(document).ready(function(){
         $('#print').click(function(){
           $(".row.main").print({
-                  globalStyles: true,
-                  mediaPrint: true,
-                  stylesheet: null,
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: "/css/print_cert_mat.css",
                   noPrintSelector: ".no-print",
                   iframe: true,
                   append: null,

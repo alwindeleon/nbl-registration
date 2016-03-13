@@ -3,14 +3,18 @@ extends layout
 block content
   .row.main
     .col-md-6.col-md-offset-3.well.well-lg.top-2#mainBox
+      h2.text-center Catholic School of Pacita
       h4.text-center Private School Registry of Learners
       h5.text-center Beginning-Of-School-Year
+      h6 Region : 4-A
+      h6 School Division : Laguna
+      h6 School ID : 402422
+      h6 Name of Institution : NBL Education System
       .row
         .col-md-12
           table.table.table-striped.table-hover
             thead
               tr
-                th #
                 th Student Number
                 th Last Name
                 th First Name
@@ -19,18 +23,19 @@ block content
                 th Birth Date
                 th Year Level
                 th Section
+                th Province Residence
             tbody
               for student,index in students
                 tr
-                  th=index+1+'.'
-                  th=student.studentNumber
-                  th=student.lastName
-                  th=student.firstName
-                  th=student.middleName
-                  th=student.gender
-                  th=student.dateOfBirth
-                  th=student.yearLevel
-                  th=student.section
+                  td=student.studentNumber
+                  td=student.lastName
+                  td=student.firstName
+                  td=student.middleName
+                  td=student.gender
+                  td=student.dateOfBirth
+                  td=student.yearLevel
+                  td=student.section
+                  td Laguna
               
       .row
         .col-lg-4.col-lg-offset-4
@@ -45,9 +50,9 @@ block content
       $(document).ready(function(){
         $('#print').click(function(){
           $(".row.main").print({
-                  globalStyles: true,
-                  mediaPrint: true,
-                  stylesheet: null,
+                  globalStyles: false,
+                  mediaPrint: false,
+                  stylesheet: "/css/deped.css",
                   noPrintSelector: ".no-print",
                   iframe: true,
                   append: null,
